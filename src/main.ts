@@ -1,8 +1,8 @@
-export let myName: string = "beijing";
-export let age: number = 12;
+export let myName = 'beijing';
+export let age = 12;
 console.log(myName, age);
 
-import { prompt } from "enquirer";
+import { prompt } from 'enquirer';
 
 console.log(prompt);
 
