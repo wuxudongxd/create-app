@@ -16,6 +16,9 @@
     "emitDeclarationOnly": true,
     // 可选: transpile 没有引用关系的文件
     "isolatedModules": true,
-    "outDir": "dist"
-  }
+    "outDir": "dist/types",
+  },
+  "include": [
+    "src"
+  ]
 }

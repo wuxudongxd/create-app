@@ -1,15 +1,22 @@
 {
   "name": "create-app",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/cjs/index.js",
   "repository": "https://github.com/wuxudongxd/create-app.git",
   "author": "wuxudongxd <wuxudongxd@gmail.com>",
   "license": "MIT",
+  "bin": {
+    "create-app": "dist/bundle.cjs.js"
+  },
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "prepare": "husky install",
     "pre-commit": "lint-staged",
     "build": "tsc && rollup -c",
-    "pre": "node dist/bundle.cjs.js"
+    "dev": "npm run build && node dist/cjs/index.js",
+    "pre": "node dist/cjs/index.js"
   },
   "config": {
     "commitizen": {
@@ -18,7 +25,9 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.15.4",
-    "enquirer": "^2.3.6"
+    "kolorist": "^1.5.0",
+    "minimist": "^1.2.5",
+    "prompts": "^2.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",
@@ -30,7 +39,9 @@
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.5",
     "@types/jest": "^27.0.2",
+    "@types/minimist": "^1.2.2",
     "@types/node": "^16.10.3",
+    "@types/prompts": "^2.0.14",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "commitizen": "^4.2.4",

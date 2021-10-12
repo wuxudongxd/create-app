@@ -1,13 +1,14 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import { terser as uglify } from 'rollup-plugin-terser';
+// import { terser as uglify } from 'rollup-plugin-terser';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
 import babel from '@rollup/plugin-babel';
+import json from '@rollup/plugin-json';
 
 export default {
-  input: 'src/main.ts',
+  input: 'src/index.ts',
   output: {
-    file: 'dist/bundle.cjs.js',
+    file: 'dist/cjs/index.js',
     format: 'cjs',
     sourcemap: true,
   },
@@ -17,6 +18,7 @@ export default {
     }),
     commonjs(),
     // uglify(),
+    json(),
     babel({
       extensions: [...DEFAULT_EXTENSIONS, '.ts', '.tsx'],
       babelHelpers: 'runtime',
