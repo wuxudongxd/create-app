@@ -4,6 +4,5 @@ module.exports = {
     node: true,
   },
   globals: {},
-  ignorePatterns: ['.prettierrc.js', '.vscode/*', 'dist/**'],
   rules: {},
 };
