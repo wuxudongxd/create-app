@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 'use strict';
 
 var _Array$from = require('@babel/runtime-corejs3/core-js-stable/array/from');
@@ -16,6 +17,7 @@ var _JSON$stringify = require('@babel/runtime-corejs3/core-js-stable/json/string
 var _filterInstanceProperty = require('@babel/runtime-corejs3/core-js-stable/instance/filter');
 var fs = require('fs');
 var path = require('path');
+var url = require('url');
 var minimist = require('minimist');
 var prompts = require('prompts');
 var kolorist = require('kolorist');
@@ -127,11 +129,11 @@ function _createForOfIteratorHelper(o, allowArrayLike) {
 }
 
 function _unsupportedIterableToArray(o, minLen) {
-  var _context6;
+  var _context7;
   if (!o) return;
   if (typeof o === 'string') return _arrayLikeToArray(o, minLen);
-  var n = _sliceInstanceProperty__default['default']((_context6 = Object.prototype.toString.call(o))).call(
-    _context6,
+  var n = _sliceInstanceProperty__default['default']((_context7 = Object.prototype.toString.call(o))).call(
+    _context7,
     8,
     -1,
   );
@@ -154,6 +156,14 @@ var argv = minimist__default['default'](
   },
 );
 var cwd = process.cwd();
+
+var __dirname$1 = path__default['default'].dirname(
+  url.fileURLToPath(
+    typeof document === 'undefined'
+      ? new (require('u' + 'rl').URL)('file:' + __filename).href
+      : (document.currentScript && document.currentScript.src) || new URL('index.js', document.baseURI).href,
+  ),
+);
 /**
  * 初始化的框架们
  */
@@ -271,9 +281,9 @@ function _init() {
         pkgManager;
 
       return _regeneratorRuntime__default['default'].wrap(
-        function _callee$(_context5) {
+        function _callee$(_context6) {
           while (1) {
-            switch ((_context5.prev = _context5.next)) {
+            switch ((_context6.prev = _context6.next)) {
               case 0:
                 // argv._ contains all the arguments that didn't have an option associated with them.
                 // npm init app 项目名
@@ -284,8 +294,8 @@ function _init() {
                 defaultProjectName =
                   (_targetDir = targetDir) !== null && _targetDir !== void 0 ? _targetDir : 'initial-project';
                 result = {};
-                _context5.prev = 4;
-                _context5.next = 7;
+                _context6.prev = 4;
+                _context6.next = 7;
                 return prompts__default['default'](
                   [
                     {
@@ -397,15 +407,15 @@ function _init() {
                 );
 
               case 7:
-                result = _context5.sent;
-                _context5.next = 14;
+                result = _context6.sent;
+                _context6.next = 14;
                 break;
 
               case 10:
-                _context5.prev = 10;
-                _context5.t0 = _context5['catch'](4);
-                console.log(_context5.t0.message);
-                return _context5.abrupt('return');
+                _context6.prev = 10;
+                _context6.t0 = _context6['catch'](4);
+                console.log(_context6.t0.message);
+                return _context6.abrupt('return');
 
               case 14:
                 // user choice associated with prompts
@@ -424,7 +434,7 @@ function _init() {
 
                 template = variant || framework || template;
                 console.log('\n\u6B63\u5728 '.concat(root, ' \u521B\u5EFA\u811A\u624B\u67B6\u9879\u76EE\u4E2D...'));
-                templateDir = path__default['default'].join(__dirname, '../../packages/template-'.concat(template));
+                templateDir = path__default['default'].join(__dirname$1, 'packages/template-'.concat(template));
 
                 write = function write(file, content) {
                   var targetPath = renameFiles[file]
@@ -441,7 +451,11 @@ function _init() {
                 files = fs__default['default'].readdirSync(templateDir);
                 _iterator3 = _createForOfIteratorHelper(
                   _filterInstanceProperty__default['default'](files).call(files, function (f) {
-                    return f !== 'package.json';
+                    var _context5;
+
+                    return !_includesInstanceProperty__default['default'](
+                      (_context5 = ['package.json', 'node_modules']),
+                    ).call(_context5, f);
                   }),
                 );
 
@@ -465,32 +479,34 @@ function _init() {
                 write('package.json', _JSON$stringify__default['default'](pkg, null, 2));
                 pkgInfo = pkgFromUserAgent(process.env.npm_config_user_agent);
                 pkgManager = pkgInfo ? pkgInfo.name : 'npm';
-                console.log('\u5B8C\u6210\uFF01 \u73B0\u5728\u8FD0\u884C\uFF1A\n');
+                console.log(
+                  '\u521D\u59CB\u5316\u5B8C\u6210\uFF01\u73B0\u5728\u53EF\u4EE5\u8FD0\u884C\u4EE5\u4E0B\u547D\u4EE4\uFF1A\n',
+                );
 
                 if (root !== cwd) {
                   console.log('  cd '.concat(path__default['default'].relative(cwd, root)));
                 }
 
-                _context5.t1 = pkgManager;
-                _context5.next = _context5.t1 === 'yarn' ? 34 : 37;
+                _context6.t1 = pkgManager;
+                _context6.next = _context6.t1 === 'yarn' ? 34 : 37;
                 break;
 
               case 34:
                 console.log('  yarn');
                 console.log('  yarn dev');
-                return _context5.abrupt('break', 40);
+                return _context6.abrupt('break', 40);
 
               case 37:
                 console.log('  '.concat(pkgManager, ' install'));
                 console.log('  '.concat(pkgManager, ' run dev'));
-                return _context5.abrupt('break', 40);
+                return _context6.abrupt('break', 40);
 
               case 40:
                 console.log();
 
               case 41:
               case 'end':
-                return _context5.stop();
+                return _context6.stop();
             }
           }
         },

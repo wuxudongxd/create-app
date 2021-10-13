@@ -8,6 +8,7 @@ import json from '@rollup/plugin-json';
 export default {
   input: 'src/index.ts',
   output: {
+    banner: '#!/usr/bin/env node',
     file: 'index.js',
     format: 'cjs',
     sourcemap: true,

@@ -1,12 +1,11 @@
 {
   "name": "@wuxudongxd/create-app",
-  "version": "1.0.0",
-  "main": "dist/cjs/index.js",
+  "version": "1.0.4",
   "repository": "https://github.com/wuxudongxd/create-app.git",
   "author": "wuxudongxd <wuxudongxd@gmail.com>",
   "license": "MIT",
   "bin": {
-    "create-app": "dist/bundle.cjs.js"
+    "create-app": "index.js"
   },
   "files": [
     "packages/",

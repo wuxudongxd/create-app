@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 import minimist from 'minimist';
 import prompts from 'prompts';
@@ -8,6 +9,8 @@ import { yellow, green, cyan, blue, red } from 'kolorist';
 const argv = minimist(process.argv.slice(2), { string: ['_'] });
 
 const cwd = process.cwd();
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /**
  * 初始化的框架们
@@ -184,7 +187,7 @@ async function init() {
 
   console.log(`\n正在 ${root} 创建脚手架项目中...`);
 
-  const templateDir = path.join(__dirname, `../../packages/template-${template}`);
+  const templateDir = path.join(__dirname, `packages/template-${template}`);
 
   const write = (file: string, content?: string) => {
     const targetPath = renameFiles[file] ? path.join(root, renameFiles[file]) : path.join(root, file);
@@ -196,7 +199,7 @@ async function init() {
   };
 
   const files = fs.readdirSync(templateDir);
-  for (const file of files.filter((f) => f !== 'package.json')) {
+  for (const file of files.filter((f) => !['package.json', 'node_modules'].includes(f))) {
     write(file);
   }
 
@@ -209,7 +212,7 @@ async function init() {
   const pkgInfo = pkgFromUserAgent(process.env.npm_config_user_agent);
   const pkgManager = pkgInfo ? pkgInfo.name : 'npm';
 
-  console.log(`\完成！ 现在运行：\n`);
+  console.log(`\初始化完成！现在可以运行以下命令：\n`);
   if (root !== cwd) {
     console.log(`  cd ${path.relative(cwd, root)}`);
   }
