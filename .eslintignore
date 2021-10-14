@@ -1,6 +1,4 @@
 .prettierrc.js
 .vscode/*
-dist/**
-index.js
-index.js.map
-packages/*
+dist
+packages

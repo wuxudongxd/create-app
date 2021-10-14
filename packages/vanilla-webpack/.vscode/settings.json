@@ -1,0 +1,19 @@
+{
+  // 使用 stylelint 自身的校验即可
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+  ],
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  // 文件保存最后空一行
+  "files.insertFinalNewline": true,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
