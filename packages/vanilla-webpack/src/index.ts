@@ -1,15 +1,11 @@
-import { a } from "./hello";
+import "./app.scss";
 
-console.log(a);
+/* eslint-disable @typescript-eslint/no-useless-constructor */
+export const arr = [1, [2, 3], 4];
+let res = arr.flat();
+console.log(res);
 
-console.log([1, [2, 3]].flat());
-const promise1 = Promise.resolve(3);
-const promise2 = 42;
-const promise3 = new Promise((resolve, reject) => {
-  setTimeout(resolve, 100, "foo");
-});
-
-Promise.all([promise1, promise2, promise3]).then((values) => {
-  console.log(values);
-});
-// expected output: Array [3, 42, "foo"]
+class Person {
+  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
+  constructor() {}
+}

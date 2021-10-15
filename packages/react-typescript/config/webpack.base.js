@@ -3,24 +3,19 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const WebpackBar = require("webpackbar");
-const paths = require("../paths");
-const { isDevelopment, isProduction } = require("../environment");
-const { imageInlineSizeLimit } = require("../config");
+const paths = require("./paths");
+
+const isDevelopment = process.env.NODE_ENV !== "production";
+const isProduction = !isDevelopment;
 
 const getCssLoaders = () => [
   isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
-  {
-    loader: "css-loader",
-    options: {
-      sourceMap: isDevelopment,
-    },
-  },
+  "css-loader",
   {
     loader: "postcss-loader",
     options: {
       postcssOptions: {
         plugins: [
-          // eslint-disable-next-line global-require
           require("postcss-flexbugs-fixes"),
           isProduction && [
             "postcss-preset-env",
@@ -49,11 +44,11 @@ module.exports = {
     },
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js", ".json"],
+    extensions: [".ts", ".js", ".json"],
     alias: {
-      Src: paths.appSrc,
-      Components: paths.appSrcComponents,
-      Utils: paths.appSrcUtils,
+      "@src": paths.appSrc,
+      "@components": paths.appSrcComponents,
+      "@utils": paths.appSrcUtils,
     },
   },
   module: {
@@ -64,18 +59,10 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: [
-          ...getCssLoaders(),
-          {
-            loader: "sass-loader",
-            options: {
-              sourceMap: isDevelopment,
-            },
-          },
-        ],
+        use: [...getCssLoaders(), "sass-loader"],
       },
       {
-        test: /\.(tsx?|jsx?)$/,
+        test: /\.(ts?|js?)$/,
         loader: "babel-loader",
         options: { cacheDirectory: true },
         exclude: /node_modules/,
@@ -85,7 +72,7 @@ module.exports = {
         type: "asset",
         parser: {
           dataUrlCondition: {
-            maxSize: imageInlineSizeLimit,
+            maxSize: 4 * 1024,
           },
         },
       },
@@ -130,5 +117,5 @@ module.exports = {
         chunkFilename: "css/[name].[contenthash:8].css",
         ignoreOrder: false,
       }),
-  ],
+  ].filter(Boolean),
 };

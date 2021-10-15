@@ -1,3 +1,5 @@
 {
-  "*.{js,jsx,ts,tsx,css,scss,yml,yaml,html,less,md,json}": ["npm run lint"]
+  "*.{ts,js}": ["eslint -c .eslintrc.js src --fix"],
+  "*.{css,less,scss}": ["stylelint --config .stylelintrc.js --fix"],
+  "*.{ts,js,json,html,yml,css,less,scss,md}": ["prettier --write"]
 }

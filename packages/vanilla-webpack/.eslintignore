@@ -1,5 +1,2 @@
 node_modules
-.prettierrc.js
-.vscode/*
-script
-publish
+build

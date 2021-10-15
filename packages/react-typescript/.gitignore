@@ -277,7 +277,6 @@ tags
 [._]*.un~
 
 # customize
-dist/
 build/
 package-lock.json
 yarn.lock

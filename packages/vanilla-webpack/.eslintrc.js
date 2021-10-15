@@ -4,5 +4,7 @@ module.exports = {
     browser: true,
   },
   globals: {},
-  rules: {},
+  rules: {
+    "@typescript-eslint/no-require-imports": "off",
+  },
 };
